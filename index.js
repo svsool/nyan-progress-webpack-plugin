@@ -18,6 +18,7 @@ function onProgress(progress, messages, step, isInProgress, options) {
     if (options.restoreCursorPosition) {
       options.logger(cursorSavePosition + cursorUp(1));
     }
+    options.logger(cursorUp(stdoutLineCount + 2));
   } else {
     options.logger('');
   }
@@ -50,9 +51,10 @@ module.exports = function NyanProgressPlugin(options) {
       return styles.cyan.open + messages[0] + styles.cyan.close +
         (messages[1] ?
           ' ' + styles.green.open + '(' + messages[1] + ')' + styles.green.close :
-            ''
+          ''
         );
-    }
+    },
+    nyanCatSays: function (progress) { return progress === 1 && 'Nyan!'; }
   }, options);
 
   if (options.hookStdout) {
